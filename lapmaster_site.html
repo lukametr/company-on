@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaptopMaster — Gaming Laptop Workshop · Tbilisi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #18181b;
+    --surface:  #1f1f23;
+    --surface2: #27272c;
+    --border:   #2e2e34;
+    --orange:   #f97316;
+    --orange2:  #ea6c0a;
+    --text:     #e4e4e7;
+    --muted:    #71717a;
+    --light:    #a1a1aa;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(24,24,27,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--orange); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--light);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 2rem 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(249,115,22,0.1);
+    border: 1px solid rgba(249,115,22,0.25);
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+  }
+  .hero-badge::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--orange);
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--light);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 420px;
+  }
+
+  .hero-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .hero-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--light);
+  }
+  .hero-contact-item .icon {
+    width: 36px;
+    height: 36px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .hero-contact-item .icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--orange);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .hero-contact-item strong { color: var(--text); }
+
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--orange), transparent);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--light);
+  }
+  .badge.active {
+    border-color: rgba(249,115,22,0.4);
+    color: var(--orange);
+    background: rgba(249,115,22,0.08);
+  }
+
+  /* ── SECTION COMMON ── */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 2rem;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+
+  /* ── ARTICLES ── */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .article-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .article-card:hover {
+    border-color: rgba(249,115,22,0.4);
+    transform: translateY(-2px);
+  }
+
+  .article-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: rgba(249,115,22,0.1);
+    border: 1px solid rgba(249,115,22,0.2);
+    border-radius: 4px;
+    padding: 3px 10px;
+    width: fit-content;
+  }
+
+  .article-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+  }
+
+  .article-excerpt {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: auto;
+  }
+
+  .article-arrow {
+    width: 20px;
+    height: 20px;
+    stroke: var(--orange);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── PRICES ── */
+  .prices-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .price-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .price-group-header {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .price-group-header svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--orange);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 1.5rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row:hover { background: var(--surface2); }
+
+  .price-name { font-size: 14px; color: var(--light); }
+  .price-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .price-amount {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--orange);
+    white-space: nowrap;
+  }
+  .price-amount span {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .price-note-box {
+    margin-top: 1.5rem;
+    background: rgba(249,115,22,0.06);
+    border: 1px solid rgba(249,115,22,0.2);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 13px;
+    color: var(--light);
+    line-height: 1.6;
+  }
+
+  /* ── VIDEO ── */
+  .video-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .video-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .video-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+  }
+  .video-placeholder svg {
+    width: 48px;
+    height: 48px;
+    stroke: var(--border);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .video-placeholder p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* Replace this div with actual iframe when you have a video link */
+  .video-embed-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .video-info h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+  .video-info p {
+    font-size: 15px;
+    color: var(--light);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .directions-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .directions-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--light);
+  }
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(249,115,22,0.15);
+    border: 1px solid rgba(249,115,22,0.3);
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .footer-logo span { color: var(--orange); }
+  .footer-copy { font-size: 13px; color: var(--muted); }
+
+  /* ── ORANGE LINE ── */
+  .orange-accent {
+    display: inline-block;
+    width: 40px;
+    height: 3px;
+    background: var(--orange);
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; padding: 40px 1.5rem; }
+    .hero h1 { font-size: 48px; }
+    .hero-visual { display: none; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .prices-layout { grid-template-columns: 1fr; }
+    .video-layout { grid-template-columns: 1fr; }
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .section { padding: 40px 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo">Laptop<span>Master</span></a>
+  <ul class="nav-links">
+    <li><a href="#articles">სტატიები</a></li>
+    <li><a href="#prices">ფასები</a></li>
+    <li><a href="#howtocome">როგორ მოხვალთ</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">Gaming Laptop Workshop · Tbilisi</div>
+    <h1>სახელოსნო<br>სადაც <em>ოსტატი</em><br>მუშაობს</h1>
+    <p class="hero-desc">
+      10 წლიანი გამოცდილება. მიკროსქემის დონის დიაგნოსტიკა და შეკეთება.
+      პრემიუმ მასალები. გარანტია ყველა სამუშაოზე.
+    </p>
+    <div class="hero-contacts">
+      <div class="hero-contact-item">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <strong>მისამართი:</strong> თბილისი, [ქუჩა, ნომერი]
+        </div>
+      </div>
+      <div class="hero-contact-item">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.27 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+        </div>
+        <div>
+          <strong>ტელეფონი:</strong> +995 [ნომერი]
+        </div>
+      </div>
+      <div class="hero-contact-item">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <strong>სამუშაო საათები:</strong> ორშ–შაბ, 10:00 – 19:00
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">თვე სამუშაოდ</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">შეკეთებული</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">გარანტია</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">SMD</div>
+          <div class="stat-label">დონის სამუშაო</div>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="badge active">Gaming Laptops</span>
+        <span class="badge">Motherboard Repair</span>
+        <span class="badge">Thermal Paste</span>
+        <span class="badge">BIOS Flash</span>
+        <span class="badge">SSD Upgrade</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ ARTICLES ═══ -->
+<section class="section" id="articles">
+  <div class="orange-accent"></div>
+  <div class="section-label">სტატიები</div>
+  <div class="section-title">სასარგებლო ინფორმაცია</div>
+
+  <div class="articles-grid">
+
+    <!-- სტატია 1 — შეავსე შენი კონტენტით -->
+    <div class="article-card">
+      <span class="article-tag">Gaming</span>
+      <h2 class="article-title">რატომ ხდება Gaming ლეპტოპი ცხელი და რა ემართება მას</h2>
+      <p class="article-excerpt">თქვენი ლეპტოპი გათიშდება თამაშის დროს? ეს სტატია ხსნის თერმული გადახურების მიზეზებს და გამოსავლებს...</p>
+      <div class="article-meta">
+        <span>2025 · 5 წუთის კითხვა</span>
+        <svg class="article-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+    <!-- სტატია 2 -->
+    <div class="article-card">
+      <span class="article-tag">Upgrade</span>
+      <h2 class="article-title">SSD-ით ლეპტოპის სიჩქარე 3-ჯერ გაიზარდა — რეალური მაგალითი</h2>
+      <p class="article-excerpt">კლიენტის HP Pavilion 5 წლის HDD-ით მოვიდა. NVMe SSD ჩავსვი და ჩართვის დრო 40 წამიდან 8 წამამდე ჩამოვიდა...</p>
+      <div class="article-meta">
+        <span>2025 · 4 წუთის კითხვა</span>
+        <svg class="article-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+    <!-- სტატია 3 -->
+    <div class="article-card">
+      <span class="article-tag">Diagnostics</span>
+      <h2 class="article-title">ლეპტოპი არ ირთვება — სად უნდა ეძებო პრობლემა</h2>
+      <p class="article-excerpt">დედაპლატა, დამტენი, ბატარეა? პასუხი ყოველთვის ადვილი არ არის. ასე ვაკეთებ დიაგნოსტიკას სახელოსნოში...</p>
+      <div class="article-meta">
+        <span>2025 · 6 წუთის კითხვა</span>
+        <svg class="article-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ PRICES ═══ -->
+<section class="section" id="prices">
+  <div class="orange-accent"></div>
+  <div class="section-label">ღირებულება</div>
+  <div class="section-title">ფასების ჩამონათვალი</div>
+
+  <div class="prices-layout">
+
+    <!-- ჯგუფი 1 -->
+    <div class="price-group">
+      <div class="price-group-header">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        ძირითადი სერვისები
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">დიაგნოსტიკა</div>
+          <div class="price-note">სრული შეფასება</div>
+        </div>
+        <div class="price-amount">უფასო</div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">თერმული პასტის შეცვლა</div>
+          <div class="price-note">პრემიუმ TF7 / Kryonaut</div>
+        </div>
+        <div class="price-amount">35 <span>₾</span></div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">RAM / SSD დამატება</div>
+          <div class="price-note">სამუშაოს ღირებულება</div>
+        </div>
+        <div class="price-amount">20 <span>₾</span></div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">კლავიატურის შეცვლა</div>
+          <div class="price-note">სამუშაოს ღირებულება</div>
+        </div>
+        <div class="price-amount">30 <span>₾</span></div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">ეკრანის შეცვლა</div>
+          <div class="price-note">სამუშაოს ღირებულება</div>
+        </div>
+        <div class="price-amount">40 <span>₾</span></div>
+      </div>
+    </div>
+
+    <!-- ჯგუფი 2 -->
+    <div class="price-group">
+      <div class="price-group-header">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        დედაპლატის სამუშაო
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">BIOS Flash / Recovery</div>
+          <div class="price-note">CH341A პროგრამატორი</div>
+        </div>
+        <div class="price-amount">50 <span>₾</span></div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">SMD კომპონენტების შეცვლა</div>
+          <div class="price-note">მიკროსქემის დონე</div>
+        </div>
+        <div class="price-amount">70+ <span>₾</span></div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">დამტენის პორტის შეკეთება</div>
+          <div class="price-note">USB-C / DC Jack</div>
+        </div>
+        <div class="price-amount">45 <span>₾</span></div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">Reballing GPU/CPU</div>
+          <div class="price-note">BGA სოლდერინგი</div>
+        </div>
+        <div class="price-amount">120+ <span>₾</span></div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-name">სრული გაწმენდა</div>
+          <div class="price-note">შიგნიდან + ქულერი</div>
+        </div>
+        <div class="price-amount">25 <span>₾</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="price-note-box">
+    ⚡ ყველა ფასი მოიცავს სამუშაოს ღირებულებას. კომპონენტები ცალკე ანგარიშდება.
+    დიაგნოსტიკა სრულიად უფასოა — ფასს ვადგენთ შეკეთებამდე, შენი თანხმობის გარეშე არაფერს ვიწყებთ.
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ VIDEO / HOW TO COME ═══ -->
+<section class="section" id="howtocome">
+  <div class="orange-accent"></div>
+  <div class="section-label">მარშრუტი</div>
+  <div class="section-title">როგორ მოხვალთ</div>
+
+  <div class="video-layout">
+
+    <!-- VIDEO EMBED — ჩაანაცვლე iframe-ით -->
+    <div class="video-wrapper">
+      <div class="video-embed-placeholder">
+        <!--
+          როდესაც ვიდეო მზად გაქვს, წაშალე ეს კომენტარი და ქვემოთ მოყვანილი div,
+          და ჩასვი ასე:
+
+          YouTube-ის შემთხვევაში:
+          <iframe
+            width="100%" height="100%"
+            src="https://www.youtube.com/embed/VIDEO_ID"
+            frameborder="0" allowfullscreen>
+          </iframe>
+
+          Facebook ვიდეოს შემთხვევაში:
+          <iframe
+            src="https://www.facebook.com/plugins/video.php?href=VIDEO_URL"
+            width="100%" height="100%"
+            frameborder="0" allowFullScreen>
+          </iframe>
+        -->
+        <div class="video-placeholder">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          <p>ვიდეო მალე დაემატება</p>
+          <p style="font-size:12px;color:#52525b">YouTube ან Facebook ლინკი</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="video-info">
+      <h3>ჩვენი სახელოსნო<br>ადვილი მოსახვედრია</h3>
+      <p>
+        ვიმყოფებით თბილისის ცენტრში. ქვემოთ ნაჩვენებია მარშრუტი
+        მეტროს გამოყენებით და ავტომობილით.
+      </p>
+      <ul class="directions-list">
+        <li>
+          <div class="step-num">1</div>
+          <span>ჩამოდი [მეტრო სადგური]-ზე — გამოდი [გასასვლელი] გასასვლელით</span>
+        </li>
+        <li>
+          <div class="step-num">2</div>
+          <span>გადადი [ქუჩა]-ზე, წადი [მიმართულება] 200 მეტრი</span>
+        </li>
+        <li>
+          <div class="step-num">3</div>
+          <span>შენობა [ნომერი], [სართული] სართული — კარზე წერია "LaptopMaster"</span>
+        </li>
+        <li>
+          <div class="step-num">4</div>
+          <span>პარკინგი ხელმისაწვდომია [ადგილი]-ზე</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Laptop<span>Master</span></div>
+  <div class="footer-copy">© 2025 LaptopMaster · Tbilisi, Georgia</div>
+</footer>
+
+</body>
+</html>
