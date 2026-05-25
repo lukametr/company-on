@@ -346,14 +346,48 @@
     border-radius: 12px;
     overflow: hidden;
     aspect-ratio: 16/9;
+    position: relative;
+  }
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  /* კლიკაბელური fallback — Facebook-ზე გახსნა */
+  .fb-click-cover {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--surface);
+    text-decoration: none;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .fb-click-cover:hover { background: var(--surface2); }
+  .fb-play-btn {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--orange);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.2s, background 0.2s;
   }
-  .video-embed-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
-  .video-placeholder { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .video-placeholder svg { width: 48px; height: 48px; stroke: var(--border); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .video-placeholder p { font-size: 13px; color: var(--muted); }
+  .fb-click-cover:hover .fb-play-btn { transform: scale(1.08); background: var(--orange2); }
+  .fb-play-btn svg { width: 26px; height: 26px; fill: #fff; margin-left: 3px; }
+  .fb-click-cover span {
+    font-size: 14px;
+    color: var(--light);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .fb-click-cover strong { color: var(--text); font-size: 15px; }
+
   .video-info h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 700; color: var(--text); margin-bottom: 16px; letter-spacing: -0.3px; }
   .video-info p { font-size: 15px; color: var(--light); line-height: 1.7; margin-bottom: 24px; }
 
@@ -389,7 +423,6 @@
     transform: translateY(0);
   }
 
-  /* Overlay Nav */
   .overlay-nav {
     position: sticky;
     top: 0;
@@ -422,14 +455,12 @@
   .overlay-nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); }
   .overlay-nav-logo span { color: var(--orange); }
 
-  /* Article Content */
   .article-content {
     max-width: 780px;
     margin: 0 auto;
     padding: 48px 2rem 80px;
   }
 
-  /* Article Header */
   .art-header { margin-bottom: 40px; }
   .art-tag {
     display: inline-block;
@@ -468,7 +499,6 @@
     background: var(--border);
   }
 
-  /* Hero image */
   .art-hero-img {
     width: 100%;
     border-radius: 12px;
@@ -496,7 +526,6 @@
   }
   .art-hero-img-placeholder svg { width: 36px; height: 36px; stroke: var(--border); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* Body text */
   .art-body { font-size: 17px; color: var(--light); line-height: 1.85; }
   .art-body p { margin-bottom: 1.4em; }
   .art-body h2 {
@@ -530,7 +559,6 @@
     font-style: italic;
   }
 
-  /* Photo gallery */
   .art-gallery { margin-top: 48px; }
   .art-gallery-title {
     font-family: 'Barlow Condensed', sans-serif;
@@ -564,7 +592,6 @@
     line-height: 1.4;
   }
 
-  /* Single full-width photo */
   .art-photo-full { margin: 32px 0; }
   .art-photo-full img {
     width: 100%;
@@ -797,14 +824,36 @@
 
   <div class="video-layout">
     <div class="video-wrapper">
-      <div class="video-embed-placeholder">
-        <!-- YouTube: <iframe width="100%" height="100%" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
-        <div class="video-placeholder">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-          <p>ვიდეო მალე დაემატება</p>
-          <p style="font-size:12px;color:#52525b">YouTube ან Facebook ლინკი</p>
+      <!--
+        Facebook Reel embed.
+        დაკლიკებისას Facebook-ზე ახსნის ვიდეოს ახალ ჩანართში.
+        iframe-ც სცადა ჩატვირთვა — HTTPS სერვერზე შეიძლება პირდაპირ ჩაიტვირთოს.
+      -->
+      <iframe
+        src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1832304817579674&show_text=false&width=560&autoplay=false"
+        width="560"
+        height="315"
+        style="border:none;overflow:hidden"
+        scrolling="no"
+        frameborder="0"
+        allowfullscreen="true"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        id="fbIframe">
+      </iframe>
+      <!-- კლიკაბელური fallback: თუ iframe ვერ ჩაიტვირთა, ეს გამოჩნდება -->
+      <a
+        href="https://www.facebook.com/reel/1832304817579674"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="fb-click-cover"
+        id="fbFallback"
+        style="display:none;">
+        <div class="fb-play-btn">
+          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         </div>
-      </div>
+        <strong>ვიდეოს სანახავად დააჭირე</strong>
+        <span>Facebook-ზე გახსნა →</span>
+      </a>
     </div>
     <div class="video-info">
       <h3>ჩვენი კურიერი<br>სწრაფად და იაფად</h3>
@@ -846,16 +895,37 @@
 
 <script>
 // ══════════════════════════════════════════
-// სტატიების მონაცემები
+// Facebook iframe fallback detection
 // ══════════════════════════════════════════
-// ახალი სტატიის დამატება:
-// 1. გადააკოპირე ქვემოთ article1-ის სტრუქტურა
-// 2. შეუცვალე ID: article4, article5 და ა.შ.
-// 3. article-card-ში: onclick="openArticle('article4')"
-//
-// ფოტოს დამატება body-ში:
-// photos: [ { src: 'foto.jpg', caption: 'აღწერა' } ]
-// გალერეაში ავტომატურად გამოჩნდება
+(function() {
+  var iframe = document.getElementById('fbIframe');
+  var fallback = document.getElementById('fbFallback');
+  if (!iframe || !fallback) return;
+
+  // 4 წამში თუ iframe-ს body არ ჰქონია — fallback ჩაანაცვლებს
+  var t = setTimeout(function() {
+    try {
+      var d = iframe.contentDocument;
+      if (!d || !d.body || d.body.innerHTML.trim() === '') {
+        iframe.style.display = 'none';
+        fallback.style.display = 'flex';
+      }
+    } catch(e) {
+      // SecurityError = cross-origin = ჩაიტვირთა ✓
+    }
+  }, 4000);
+
+  iframe.addEventListener('load', function() { clearTimeout(t); });
+  iframe.addEventListener('error', function() {
+    clearTimeout(t);
+    iframe.style.display = 'none';
+    fallback.style.display = 'flex';
+  });
+})();
+
+
+// ══════════════════════════════════════════
+// სტატიების მონაცემები
 // ══════════════════════════════════════════
 
 const articles = {
@@ -940,8 +1010,8 @@ const articles = {
       <p>სამუშაოს ღირებულება: 20₾. SSD ცალკე.</p>
     `,
     photos: [
-      { src: '', caption: 'HDD ამოღება HP Pavilion-იდან' },
-      { src: '', caption: 'NVMe SSD — M.2 სლოტში ჩასმა' }
+      { src: 'pavilion.jpg', caption: 'HDD ამოღება HP Pavilion-იდან' },
+      { src: 'M.2.jpg', caption: 'NVMe SSD — M.2 სლოტში ჩასმა' }
     ]
   },
 
@@ -1003,7 +1073,6 @@ function openArticle(id) {
   const overlay = document.getElementById('articleOverlay');
   const content = document.getElementById('articleContent');
 
-  // Hero image ბლოკი
   let heroHtml = '';
   if (art.heroImage) {
     heroHtml = `<img class="art-hero-img" src="${art.heroImage}" alt="${art.heroImageAlt}">`;
@@ -1015,7 +1084,6 @@ function openArticle(id) {
       </div>`;
   }
 
-  // ფოტო გალერეა
   let galleryHtml = '';
   if (art.photos && art.photos.length > 0) {
     const items = art.photos.map(p => {
@@ -1051,7 +1119,6 @@ function openArticle(id) {
     ${galleryHtml}
   `;
 
-  // გახსნა
   overlay.scrollTop = 0;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1063,7 +1130,6 @@ function closeArticle() {
   document.body.style.overflow = '';
 }
 
-// Escape ღილაკით დახურვა
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeArticle();
 });
